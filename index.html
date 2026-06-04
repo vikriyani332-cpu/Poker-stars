@@ -2,122 +2,261 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Score Cekih</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Score Cekih by Sadewa Corp</title>
     <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0d0d0d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="classic-192.png" type="image/png">
-    <meta name="theme-color" content="#1a1a1a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- LOADING SCREEN -->
-    <div id="loadingScreen" class="loading-screen">
+<body class="dark-mode">
+
+    <div id="loading-screen" class="loading-overlay">
         <div class="loading-content">
-            <img src="classic-512.png" alt="Logo" class="logo-loading" id="logoLoading">
+            <img src="classic-512.png" alt="Logo Sadewa Corp" class="loading-logo">
             <div class="loading-bar-container">
-                <div class="loading-bar" id="loadingBar"></div>
+                <div id="loading-bar-progress" class="loading-bar-fill"></div>
             </div>
-            <p class="loading-text">Memuat Score Cekih...</p>
+            <p class="loading-status">SADEWA CORP</p>
         </div>
     </div>
 
-    <!-- SETUP SCREEN -->
-    <div id="setupScreen" class="screen hidden">
-        <div class="header">
-            <img src="classic-512.png" alt="Logo" class="logo-small">
-            <h1>Score Cekih</h1>
-            <p>by Sadewa Corp</p>
-        </div>
-        
-        <div class="setup-container">
-            <h2>Setup Pemain</h2>
-            <div class="players-setup">
-                <div class="player-input">
-                    <label>Pemain A</label>
-                    <input type="text" id="playerA" value="A" maxlength="15">
-                </div>
-                <div class="player-input">
-                    <label>Pemain B</label>
-                    <input type="text" id="playerB" value="B" maxlength="15">
-                </div>
-                <div class="player-input">
-                    <label>Pemain C</label>
-                    <input type="text" id="playerC" value="C" maxlength="15">
-                </div>
-                <div class="player-input">
-                    <label>Pemain D</label>
-                    <input type="text" id="playerD" value="D" maxlength="15">
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-area">
+                <img src="classic-512.png" alt="Mini Logo" class="header-logo">
+                <div class="brand-text">
+                    <h1>SCORE CEKIH</h1>
+                    <span>SADEWA CORP PREMIUM</span>
                 </div>
             </div>
-            
-            <div class="target-container">
-                <label>Target Kemenangan</label>
-                <select id="targetScore">
-                    <option value="500">500</option>
-                    <option value="750">750</option>
-                    <option value="1000" selected>1000</option>
-                    <option value="1500">1500</option>
-                </select>
+            <div class="header-actions">
+                <button id="btn-fullscreen" class="icon-btn" title="Fullscreen">⛶</button>
+                <button id="btn-theme-toggle" class="icon-btn" title="Ubah Tema">🌓</button>
             </div>
-            
-            <button onclick="startGame()" class="btn-primary">MULAI PERMAINAN</button>
+        </header>
+
+        <nav class="app-nav">
+            <button class="nav-tab active" data-tab="tab-game">🎮 Game</button>
+            <button class="nav-tab" data-tab="tab-ranking">🏆 Rangking</button>
+            <button class="nav-tab" data-tab="tab-history">📜 History</button>
+            <button class="nav-tab" data-tab="tab-achievement">🏅 Pencapaian</button>
+            <button class="nav-tab" data-tab="tab-statistik">📊 Stat</button>
+            <button class="nav-tab" data-tab="tab-arsip">🗄️ Arsip</button>
+        </nav>
+
+        <main class="app-main-content">
+            <section id="view-setup" class="screen-view active">
+                <div class="premium-card setup-card">
+                    <h2 class="gold-title">Konfigurasi Pertandingan</h2>
+                    <p class="gold-subtitle">Atur parameter ronde dan nama pemain</p>
+                    <hr class="gold-divider">
+                    
+                    <div class="form-group">
+                        <label>Target Kemenangan Poin</label>
+                        <div class="target-options">
+                            <button type="button" class="btn-target" data-value="500">500</button>
+                            <button type="button" class="btn-target" data-value="750">750</button>
+                            <button type="button" class="btn-target active" data-value="1000">1000</button>
+                            <button type="button" class="btn-target" data-value="1500">1500</button>
+                        </div>
+                        <input type="number" id="input-target-custom" placeholder="Atau ketik target kustom..." class="premium-input text-center mt-2">
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <label>Nama Pemain Pertandingan</label>
+                        <div class="input-player-row">
+                            <span class="player-label-prefix">A</span>
+                            <input type="text" id="setup-p1" class="premium-input input-player-name" value="Pemain A" placeholder="Nama Pemain A">
+                        </div>
+                        <div class="input-player-row">
+                            <span class="player-label-prefix">B</span>
+                            <input type="text" id="setup-p2" class="premium-input input-player-name" value="Pemain B" placeholder="Nama Pemain B">
+                        </div>
+                        <div class="input-player-row">
+                            <span class="player-label-prefix">C</span>
+                            <input type="text" id="setup-p3" class="premium-input input-player-name" value="Pemain C" placeholder="Nama Pemain C">
+                        </div>
+                        <div class="input-player-row">
+                            <span class="player-label-prefix">D</span>
+                            <input type="text" id="setup-p4" class="premium-input input-player-name" value="Pemain D" placeholder="Nama Pemain D">
+                        </div>
+                    </div>
+
+                    <button id="btn-start-game" class="premium-btn btn-gold w-100 mt-4">MULAI PERMAINAN</button>
+                </div>
+            </section>
+
+            <section id="view-game" class="screen-view">
+                <div class="game-status-header">
+                    <div class="status-box">
+                        <span class="label">RONDE</span>
+                        <span id="display-ronde" class="value">1</span>
+                    </div>
+                    <div class="status-box-center">
+                        <span class="target-badge">Target: <span id="display-target">1000</span></span>
+                    </div>
+                    <div class="status-box">
+                        <span class="label">PUTERAN</span>
+                        <span id="display-puteran" class="value">0</span>
+                    </div>
+                </div>
+
+                <div id="scoreboard-container" class="scoreboard-grid">
+                    </div>
+
+                <div class="premium-card input-panel-card mt-3">
+                    <h3 class="panel-title">Input Skor Puteran Baru</h3>
+                    <div class="input-skor-grid">
+                        <div class="skor-field">
+                            <label id="lbl-input-p1" class="player-name-lbl">Pemain A</label>
+                            <input type="number" id="score-input-p1" class="premium-input text-center score-field-input" placeholder="0" pattern="[0-9-]*">
+                        </div>
+                        <div class="skor-field">
+                            <label id="lbl-input-p2" class="player-name-lbl">Pemain B</label>
+                            <input type="number" id="score-input-p2" class="premium-input text-center score-field-input" placeholder="0" pattern="[0-9-]*">
+                        </div>
+                        <div class="skor-field">
+                            <label id="lbl-input-p3" class="player-name-lbl">Pemain C</label>
+                            <input type="number" id="score-input-p3" class="premium-input text-center score-field-input" placeholder="0" pattern="[0-9-]*">
+                        </div>
+                        <div class="skor-field">
+                            <label id="lbl-input-p4" class="player-name-lbl">Pemain D</label>
+                            <input type="number" id="score-input-p4" class="premium-input text-center score-field-input" placeholder="0" pattern="[0-9-]*">
+                        </div>
+                    </div>
+                    <div class="panel-actions-row mt-3">
+                        <button id="btn-undo" class="premium-btn btn-outline-gold flex-1">↩ UNDO</button>
+                        <button id="btn-save-puteran" class="premium-btn btn-gold flex-2">SIMPAN PUTERAN</button>
+                    </div>
+                </div>
+
+                <div class="utility-row mt-3">
+                    <button id="btn-screenshot" class="premium-btn btn-utility">📸 SCREENSHOT</button>
+                </div>
+            </section>
+
+            <section id="view-tabs" class="screen-view">
+                <div id="tab-ranking" class="tab-panel-item">
+                    <div class="premium-card">
+                        <h3 class="gold-title text-center">🏆 RANKING REALTIME</h3>
+                        <hr class="gold-divider">
+                        <div class="table-responsive">
+                            <table class="premium-table">
+                               <thead>
+                                   <tr>
+                                       <th class="text-center">Pos</th>
+                                       <th>Pemain</th>
+                                       <th class="text-right">Skor Utama</th>
+                                       <th class="text-center">Bintang</th>
+                                   </tr>
+                               </thead>
+                               <tbody id="table-ranking-body">
+                                   </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-history" class="tab-panel-item">
+                    <div class="premium-card">
+                        <h3 class="gold-title text-center">📜 LOG JALANNYA GAME</h3>
+                        <hr class="gold-divider">
+                        <div id="history-log-list" class="log-timeline-container">
+                            </div>
+                    </div>
+                </div>
+
+                <div id="tab-achievement" class="tab-panel-item">
+                    <div class="premium-card">
+                        <h3 class="gold-title text-center">🏅 KABINET PENCAPAIAN</h3>
+                        <hr class="gold-divider">
+                        <div id="achievement-grid-list" class="achievement-display-grid">
+                            </div>
+                    </div>
+                </div>
+
+                <div id="tab-statistik" class="tab-panel-item">
+                    <div class="premium-card">
+                        <h3 class="gold-title text-center">📊 STATISTIK PERMANEN</h3>
+                        <p class="gold-subtitle text-center">Data akumulasi berdasarkan nama unik</p>
+                        <hr class="gold-divider">
+                        <div class="table-responsive">
+                            <table class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th class="text-center">⭐️ Stars</th>
+                                        <th class="text-center">🔥 Membakar</th>
+                                        <th class="text-center">📉 Terbakar</th>
+                                        <th class="text-center">💥 T-Burn</th>
+                                        <th class="text-right">Max Poin</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-statistik-body">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-arsip" class="tab-panel-item">
+                    <div class="premium-card">
+                        <h3 class="gold-title text-center">🗄️ ARSIP PERMANEN</h3>
+                        <p class="gold-subtitle text-center">Daftar semua pemain yang pernah mendaftar</p>
+                        <hr class="gold-divider">
+                        <div id="arsip-container-list" class="archive-tags-flex">
+                            </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <button id="btn-reset-game" class="premium-btn btn-danger btn-reset-fixed">🗑️ RESET GAME</button>
+        </footer>
+    </div>
+
+    <div id="modal-edit-nama" class="modal-backdrop">
+        <div class="modal-box premium-card animate-pop">
+            <h3 class="gold-title">📝 Koreksi Nama</h3>
+            <p class="gold-subtitle">Perubahan memperbarui UI & LocalStorage secara instan</p>
+            <hr class="gold-divider">
+            <div class="form-group">
+                <label>Nama Baru Pemain</label>
+                <input type="text" id="modal-input-new-name" class="premium-input mt-2" maxlength="20">
+                <input type="hidden" id="modal-input-player-index">
+            </div>
+            <div class="modal-actions mt-4">
+                <button id="btn-modal-cancel-name" class="premium-btn btn-outline-gold">Batal</button>
+                <button id="btn-modal-save-name" class="premium-btn btn-gold">Simpan Perubahan</button>
+            </div>
         </div>
     </div>
 
-    <!-- GAME SCREEN -->
-    <div id="gameScreen" class="screen hidden">
-        <div class="top-bar">
-            <div class="round-info">
-                <span>RONDE <span id="currentRound">1</span></span>
-                <span>PUTERAN <span id="currentPuteran">1</span></span>
-            </div>
-            <div class="target-info">
-                Target: <span id="targetDisplay">1000</span>
-            </div>
-        </div>
-
-        <div class="players-grid" id="playersGrid"></div>
-
-        <div class="action-buttons">
-            <button onclick="showScoreInput()" class="btn-primary">INPUT SKOR PUTERAN</button>
-            <button onclick="undoLastAction()" class="btn-secondary">↩ UNDO</button>
-        </div>
-
-        <div class="bottom-menu">
-            <button onclick="showTab(0)">🏆 Ranking</button>
-            <button onclick="showTab(1)">📜 History</button>
-            <button onclick="showTab(2)">🏅 Achievement</button>
-            <button onclick="showTab(3)">📊 Statistik</button>
-            <button onclick="showTab(4)">📦 Arsip</button>
-        </div>
-
-        <div class="floating-buttons">
-            <button onclick="takeScreenshot()" class="fab">📸</button>
-            <button onclick="toggleFullscreen()" class="fab">⛶</button>
-            <button onclick="resetGame()" class="fab reset-btn">🗑</button>
-        </div>
-    </div>
-
-    <!-- SCORE INPUT MODAL -->
-    <div id="scoreModal" class="modal hidden">
-        <div class="modal-content">
-            <h2>Input Skor Puteran <span id="modalPuteran"></span></h2>
-            <div class="score-inputs" id="scoreInputs"></div>
-            <div class="modal-actions">
-                <button onclick="closeModal()" class="btn-secondary">BATAL</button>
-                <button onclick="saveScores()" class="btn-primary">SIMPAN PUTERAN</button>
+    <div id="modal-bakar-pelaku" class="modal-backdrop">
+        <div class="modal-box premium-card animate-pop">
+            <h3 class="gold-title">🔥 Konfirmasi Pembakaran</h3>
+            <p id="modal-bakar-desc" class="gold-subtitle">Siapa yang membakar Pemain?</p>
+            <hr class="gold-divider">
+            <input type="hidden" id="modal-bakar-victim-idx">
+            <div id="modal-bakar-options-container" class="vertical-button-stack">
+                </div>
+            <div class="modal-actions mt-3">
+                <button id="btn-modal-cancel-bakar" class="premium-btn btn-outline-gold w-100">Batalkan</button>
             </div>
         </div>
     </div>
 
-    <!-- TABS CONTAINER -->
-    <div id="tabsContainer" class="tabs-container hidden">
-        <div class="tab-header">
-            <button onclick="hideTabs()">✕ Tutup</button>
-        </div>
-        <div id="tabContent"></div>
+    <div id="fire-animation-overlay" class="fire-overlay">
+        <div class="fire-particles-container"></div>
     </div>
 
-    <script src="app.js"></script>
+    <div id="star-animation-overlay" class="star-overlay"></div>
+
 </body>
 </html>
