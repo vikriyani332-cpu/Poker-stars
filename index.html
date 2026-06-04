@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Cekih</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="classic-192.png" type="image/png">
+    <meta name="theme-color" content="#1a1a1a">
+</head>
+<body>
+    <!-- LOADING SCREEN -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <img src="classic-512.png" alt="Logo" class="logo-loading" id="logoLoading">
+            <div class="loading-bar-container">
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <p class="loading-text">Memuat Score Cekih...</p>
+        </div>
+    </div>
+
+    <!-- SETUP SCREEN -->
+    <div id="setupScreen" class="screen hidden">
+        <div class="header">
+            <img src="classic-512.png" alt="Logo" class="logo-small">
+            <h1>Score Cekih</h1>
+            <p>by Sadewa Corp</p>
+        </div>
+        
+        <div class="setup-container">
+            <h2>Setup Pemain</h2>
+            <div class="players-setup">
+                <div class="player-input">
+                    <label>Pemain A</label>
+                    <input type="text" id="playerA" value="A" maxlength="15">
+                </div>
+                <div class="player-input">
+                    <label>Pemain B</label>
+                    <input type="text" id="playerB" value="B" maxlength="15">
+                </div>
+                <div class="player-input">
+                    <label>Pemain C</label>
+                    <input type="text" id="playerC" value="C" maxlength="15">
+                </div>
+                <div class="player-input">
+                    <label>Pemain D</label>
+                    <input type="text" id="playerD" value="D" maxlength="15">
+                </div>
+            </div>
+            
+            <div class="target-container">
+                <label>Target Kemenangan</label>
+                <select id="targetScore">
+                    <option value="500">500</option>
+                    <option value="750">750</option>
+                    <option value="1000" selected>1000</option>
+                    <option value="1500">1500</option>
+                </select>
+            </div>
+            
+            <button onclick="startGame()" class="btn-primary">MULAI PERMAINAN</button>
+        </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="gameScreen" class="screen hidden">
+        <div class="top-bar">
+            <div class="round-info">
+                <span>RONDE <span id="currentRound">1</span></span>
+                <span>PUTERAN <span id="currentPuteran">1</span></span>
+            </div>
+            <div class="target-info">
+                Target: <span id="targetDisplay">1000</span>
+            </div>
+        </div>
+
+        <div class="players-grid" id="playersGrid"></div>
+
+        <div class="action-buttons">
+            <button onclick="showScoreInput()" class="btn-primary">INPUT SKOR PUTERAN</button>
+            <button onclick="undoLastAction()" class="btn-secondary">↩ UNDO</button>
+        </div>
+
+        <div class="bottom-menu">
+            <button onclick="showTab(0)">🏆 Ranking</button>
+            <button onclick="showTab(1)">📜 History</button>
+            <button onclick="showTab(2)">🏅 Achievement</button>
+            <button onclick="showTab(3)">📊 Statistik</button>
+            <button onclick="showTab(4)">📦 Arsip</button>
+        </div>
+
+        <div class="floating-buttons">
+            <button onclick="takeScreenshot()" class="fab">📸</button>
+            <button onclick="toggleFullscreen()" class="fab">⛶</button>
+            <button onclick="resetGame()" class="fab reset-btn">🗑</button>
+        </div>
+    </div>
+
+    <!-- SCORE INPUT MODAL -->
+    <div id="scoreModal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Input Skor Puteran <span id="modalPuteran"></span></h2>
+            <div class="score-inputs" id="scoreInputs"></div>
+            <div class="modal-actions">
+                <button onclick="closeModal()" class="btn-secondary">BATAL</button>
+                <button onclick="saveScores()" class="btn-primary">SIMPAN PUTERAN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABS CONTAINER -->
+    <div id="tabsContainer" class="tabs-container hidden">
+        <div class="tab-header">
+            <button onclick="hideTabs()">✕ Tutup</button>
+        </div>
+        <div id="tabContent"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
